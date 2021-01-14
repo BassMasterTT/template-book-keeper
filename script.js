@@ -33,9 +33,7 @@ function validate(nameValue, urlValue) {
     alert("Please submit values for both fields.");
     return false;
   }
-  if (urlValue.match(regex)) {
-    alert("match");
-  }
+
   if (!urlValue.match(regex)) {
     alert("Please provide a valid web address");
     return false;
@@ -46,21 +44,20 @@ function validate(nameValue, urlValue) {
 
 // Fetch Bookmarks
 function fetchBookmarks() {
-    // Get bookmarks from localStorage if available
-    if (localStorage.getItem('bookmarks')) {
-        bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-    } else {
-        // Create bookmarks array in localSotrage
-        bookmarks = [
-            {
-                name: 'Tibor Toth',
-                url: https://tibortoth.ml
-            },
-        ];
-        localStorage.setItem(bookmarks), JSON.stringify('bookamrks');
-
-    }
-    console.log(bookmarks);
+  // Get bookmarks from localStorage if available
+  if (localStorage.getItem("bookmarks")) {
+    bookmarks = JSON.parse(localStorage.getItem("bookmarks"));
+  } else {
+    // Create bookmarks array in localSotrage
+    bookmarks = [
+      {
+        name: "Tibor Toth",
+        url: "https://tibortoth.ml",
+      },
+    ];
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  }
+  console.log(bookmarks);
 }
 
 // Handle Data from Form
