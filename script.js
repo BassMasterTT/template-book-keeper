@@ -1,10 +1,12 @@
 const modal = document.getElementById("modal");
 const modalShow = document.getElementById("show-modal");
 const modalClose = document.getElementById("close-modal");
-const bookmarForm = document.getElementById("bookmark-form");
+const bookmarkForm = document.getElementById("bookmark-form");
 const websiteNameEl = document.getElementById("website-name");
 const websiteUrlEl = document.getElementById("website-url");
 const bookmarksContainer = document.getElementById("bookmarks-container");
+
+let bookmarks = [];
 
 // Show Modal, Focus on Input
 function showModal() {
@@ -42,6 +44,25 @@ function validate(nameValue, urlValue) {
   return true;
 }
 
+// Fetch Bookmarks
+function fetchBookmarks() {
+    // Get bookmarks from localStorage if available
+    if (localStorage.getItem('bookmarks')) {
+        bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+    } else {
+        // Create bookmarks array in localSotrage
+        bookmarks = [
+            {
+                name: 'Tibor Toth',
+                url: https://tibortoth.ml
+            },
+        ];
+        localStorage.setItem(bookmarks), JSON.stringify('bookamrks');
+
+    }
+    console.log(bookmarks);
+}
+
 // Handle Data from Form
 function storeBookmark(e) {
   e.preventDefault();
@@ -50,11 +71,22 @@ function storeBookmark(e) {
   if (!urlValue.includes("http://") || !urlValue.includes("https://")) {
     urlValue = `https://${urlValue}`;
   }
-  console.log(nameValue, urlValue);
   if (!validate(nameValue, urlValue)) {
     return false;
   }
+  const bookmark = {
+    name: nameValue,
+    url: urlValue,
+  };
+  bookmarks.push(bookmark);
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+  fetchBookmarks();
+  bookmarkForm.reset();
+  websiteNameEl.focus();
 }
 
 // Event Listener
-bookmarForm.addEventListener("submit", storeBookmark);
+bookmarkForm.addEventListener("submit", storeBookmark);
+
+//  On Load, Fetch Bookmarks
+fetchBookmarks();
